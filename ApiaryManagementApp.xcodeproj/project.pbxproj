@@ -14,6 +14,10 @@
 		F81C5A80282D732400F86276 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F81C5A7F282D732400F86276 /* Assets.xcassets */; };
 		F81C5A83282D732400F86276 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F81C5A82282D732400F86276 /* Preview Assets.xcassets */; };
 		F81C5A86282D732400F86276 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F81C5A84282D732400F86276 /* LaunchScreen.storyboard */; };
+		F882F921282D7A3000A481A8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F920282D7A3000A481A8 /* HomeView.swift */; };
+		F882F926282D80EF00A481A8 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F925282D80EF00A481A8 /* SignUpView.swift */; };
+		F882F928282D9C4300A481A8 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F927282D9C4300A481A8 /* UserListView.swift */; };
+		F882F92A282DAD9500A481A8 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F929282DAD9500A481A8 /* SignInView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		F81C5A82282D732400F86276 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F81C5A85282D732400F86276 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F81C5A87282D732400F86276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F882F920282D7A3000A481A8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F882F925282D80EF00A481A8 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		F882F927282D9C4300A481A8 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
+		F882F929282DAD9500A481A8 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,7 @@
 		F81C5A75282D732300F86276 /* ApiaryManagementApp */ = {
 			isa = PBXGroup;
 			children = (
+				F882F91C282D799300A481A8 /* Views */,
 				F81C5A76282D732300F86276 /* AppDelegate.swift */,
 				F81C5A78282D732300F86276 /* SceneDelegate.swift */,
 				F81C5A7D282D732300F86276 /* ContentView.swift */,
@@ -76,6 +85,17 @@
 				F81C5A82282D732400F86276 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F882F91C282D799300A481A8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F882F920282D7A3000A481A8 /* HomeView.swift */,
+				F882F925282D80EF00A481A8 /* SignUpView.swift */,
+				F882F927282D9C4300A481A8 /* UserListView.swift */,
+				F882F929282DAD9500A481A8 /* SignInView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,10 +169,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F882F928282D9C4300A481A8 /* UserListView.swift in Sources */,
 				F81C5A7C282D732300F86276 /* ApiaryManagementApp.xcdatamodeld in Sources */,
 				F81C5A77282D732300F86276 /* AppDelegate.swift in Sources */,
 				F81C5A7E282D732300F86276 /* ContentView.swift in Sources */,
 				F81C5A79282D732300F86276 /* SceneDelegate.swift in Sources */,
+				F882F926282D80EF00A481A8 /* SignUpView.swift in Sources */,
+				F882F92A282DAD9500A481A8 /* SignInView.swift in Sources */,
+				F882F921282D7A3000A481A8 /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
