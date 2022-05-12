@@ -25,7 +25,7 @@ struct UserListView: View {
             else {
                 Text("There are no users")
             }
-        }
+        }.navigationBarTitle("User List")
     }
     
     private func deleteUser(offsets: IndexSet) {

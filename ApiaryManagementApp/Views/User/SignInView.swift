@@ -1,5 +1,5 @@
 //
-//  SignUpView.swift
+//  SignInView.swift
 //  ApiaryManagementApp
 //
 //  Created by Rafał Kuźmiczuk on 12/05/2022.
@@ -8,7 +8,8 @@
 
 import SwiftUI
 
-struct SignUpView: View {
+
+struct SignInView: View {
     @Environment(\.managedObjectContext) private var dbContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)], animation: .default)
     private var users: FetchedResults<User>
@@ -19,19 +20,22 @@ struct SignUpView: View {
     @State private var alertTitle: String = ""
     @State private var alertMsg: String = ""
     
+    @Binding var globalUsername: String?
+    
     var body: some View {
         VStack {
             Group {
                 HStack {
                     Text("Username")
                     TextField("Username", text: $username)
+                        .autocapitalization(.none)
                 }
                 HStack {
                     Text("Password")
-                    TextField("Password", text: $password)
+                    SecureField("Password", text: $password)
                 }
-                Button("Sign Up") {
-                    self.signUp()
+                Button("Sign In") {
+                    self.signIn()
                 }
                 .padding()
                 .background(Color.blue)
@@ -39,38 +43,33 @@ struct SignUpView: View {
                 .cornerRadius(10)
             }.padding()
         }
-        .navigationBarTitle("Sign Up")
+        .navigationBarTitle("Sign In")
         .alert(isPresented: $alert) {
             Alert(title: Text(alertTitle), message: Text(alertMsg))
         }
     }
     
-    private func signUp() {
+    private func signIn() {
         let arr = self.users.filter { user in user.username == self.username }
-        if arr.count == 1 {
+        if arr.count == 0 {
             self.alertTitle = "Error"
-            self.alertMsg = "Username already exists"
+            self.alertMsg = "Username does not exist"
+            self.alert = true
+            return
+        }
+        if arr.count == 1 && arr[0].password != self.password {
+            self.alertTitle = "Error"
+            self.alertMsg = "Wrong password"
             self.alert = true
             return
         }
         
-        let user = User(context: dbContext)
-        user.username = username
-        user.password = password
-        do {
-            try dbContext.save()
-            self.alertTitle = "Information"
-            self.alertMsg = "Account created"
-            self.alert = true
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
+        self.globalUsername = arr[0].username
     }
 }
 
-struct SignUpView_Previews: PreviewProvider {
+struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
+        SignInView(globalUsername: .constant("Username"))
     }
 }

@@ -10,40 +10,47 @@ import SwiftUI
 
 
 struct HomeView: View {
-    @State var username: String? = nil
+    @State var username: String? = "user"
     
     var body: some View {
         NavigationView {
             VStack {
                 if username != nil {
-                    Text("Current user: \(username ?? "")").padding()
+                    Text("Logged in as: \(username ?? "")").padding()
                 }
                 Group {
                     if username == nil {
-                        
-                        NavigationLink(destination: SignInView(globalUsername: self.$username), label: {
-                            Text("Sign In")
-                        })
-                        NavigationLink(destination: SignUpView(), label: {
-                            Text("Sign Up")
-                        })
+                        Group {
+                            NavigationLink(destination: SignInView(globalUsername: self.$username), label: {
+                                Text("Sign In")
+                            })
+                            NavigationLink(destination: SignUpView(), label: {
+                                Text("Sign Up")
+                            })
+                            NavigationLink(destination: UserListView(), label: {
+                                Text("User list")
+                            })
+                        }
+                        .frame(width: 100)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .padding()
                     }
                     else {
+                        ApariesMenuView(username: self.$username)
                         Button("Logout") {
                             self.username = nil
                         }
+                        .frame(width: 120)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .padding()
                     }
-                    NavigationLink(destination: UserListView(), label: {
-                        Text("User List")
-                    })
                 }
-                .frame(width: 100)
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .padding()
-                
             }.navigationBarTitle("Apiary management")
         }
     }
