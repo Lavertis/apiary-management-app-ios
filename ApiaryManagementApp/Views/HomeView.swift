@@ -10,15 +10,31 @@ import SwiftUI
 
 
 struct HomeView: View {
+    @State var username: String? = nil
+    
     var body: some View {
         NavigationView {
             VStack {
+                if username != nil {
+                    Text("Current user: \(username ?? "")").padding()
+                }
                 Group {
-                    NavigationLink(destination: HomeView(), label: {
-                        Text("Sign In")
-                    })
-                    NavigationLink(destination: SignUpView(), label: {
-                        Text("Sign Up")
+                    if username == nil {
+                        
+                        NavigationLink(destination: SignInView(globalUsername: self.$username), label: {
+                            Text("Sign In")
+                        })
+                        NavigationLink(destination: SignUpView(), label: {
+                            Text("Sign Up")
+                        })
+                    }
+                    else {
+                        Button("Logout") {
+                            self.username = nil
+                        }
+                    }
+                    NavigationLink(destination: UserListView(), label: {
+                        Text("User List")
                     })
                 }
                 .frame(width: 100)
