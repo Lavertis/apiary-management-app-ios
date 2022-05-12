@@ -9,15 +9,15 @@
 import SwiftUI
 
 
-struct AuthChoiceView: View {
+struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack {
                 Group {
-                    NavigationLink(destination: AuthChoiceView(), label: {
+                    NavigationLink(destination: HomeView(), label: {
                         Text("Sign In")
                     })
-                    NavigationLink(destination: AuthChoiceView(), label: {
+                    NavigationLink(destination: SignUpView(), label: {
                         Text("Sign Up")
                     })
                 }
@@ -33,8 +33,8 @@ struct AuthChoiceView: View {
     }
 }
 
-struct AuthChoiceView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        AuthChoiceView()
+        HomeView()
     }
 }
