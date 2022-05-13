@@ -19,7 +19,7 @@ struct ApiaryListView: View {
         VStack {
             if self.apiaries.count > 0 {
                 List {
-                    ForEach(apiaries, id: \.self) { apiary in
+                    ForEach(apiaries.filter { $0.user?.username == username }, id: \.self) { apiary in
                         Text(apiary.name!)
                     }.onDelete(perform: self.deleteApiary)
                 }

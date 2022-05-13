@@ -50,6 +50,19 @@ struct SignInView: View {
     }
     
     private func signIn() {
+        if username.count == 0 {
+            alertTitle = "Error"
+            alertMsg = "Username field cannot be empty"
+            alert = true
+            return
+        }
+        if password.count == 0 {
+            alertTitle = "Error"
+            alertMsg = "Password field cannot be empty"
+            alert = true
+            return
+        }
+        
         let arr = self.users.filter { user in user.username == self.username }
         if arr.count == 0 {
             self.alertTitle = "Error"
