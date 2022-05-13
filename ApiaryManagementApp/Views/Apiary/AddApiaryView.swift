@@ -10,25 +10,26 @@ import SwiftUI
 import MapKit
 
 struct AddApiaryView: View {
-    @Binding var username: String?
-    
     @Environment(\.managedObjectContext) private var dbContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \BeeType.name, ascending: true)], animation: .default)
     private var beeTypes: FetchedResults<BeeType>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Apiary.name, ascending: true)], animation: .default)
+    private var apiaries: FetchedResults<Apiary>
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)], animation: .default)
     private var users: FetchedResults<User>
+    
+    @Binding var username: String?
     
     @State private var name: String = ""
     @State private var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     @State private var beeType: BeeType?
     @State private var pickerId: Int = 0
     @State private var hiveCount: Double = 0
+    @State private var isEditing = false
     
     @State private var alert: Bool = false
     @State private var alertTitle: String = ""
     @State private var alertMsg: String = ""
-    
-    @State private var isEditing = false
     
     @State var myAnnotation = MyAnnotation(
         title: "Katedra Informatyki",
@@ -39,17 +40,30 @@ struct AddApiaryView: View {
         ),
         moveOnly: true
     )
+    @State var latitude: String = "51.2353112433304"
+    @State var longitude: String = "22.5528982268185"
     
     var body: some View {
         VStack {
             MapView(myAnnotation: $myAnnotation)
-                .frame(height: UIScreen.main.bounds.size.height * 0.33, alignment: .center)
+                .padding(.bottom)
+                .frame(height: UIScreen.main.bounds.size.height * 0.3, alignment: .center)
                 .alert(isPresented: $alert) {
                     Alert(
                         title: Text(alertTitle),
                         message: Text(alertMsg)
-                    )
-            }
+                    )}
+            Group {
+                HStack {
+                    Text("Latitude")
+                    TextField("Latitude", text: $latitude)
+                }
+                HStack {
+                    Text("Longitude")
+                    TextField("Longitude", text: $longitude)
+                }
+            }.padding(.horizontal)
+            
             Group {
                 HStack {
                     Text("Name")
@@ -65,7 +79,7 @@ struct AddApiaryView: View {
                     step: 1,
                     onEditingChanged: { editing in
                         self.isEditing = editing
-                    }
+                }
                 ).padding(.horizontal)
                 Text(String(hiveCount)).padding(.bottom)
                 
@@ -82,13 +96,27 @@ struct AddApiaryView: View {
                 }
                 .padding(.bottom)
                 
-                Button("Add apiary") {
-                    self.addApiary()
+                HStack {
+                    Button("Choose location", action: {
+                        if self.isCoordinateValid() {
+                            self.addAnnotation()
+                        }
+                    })
+                    .padding()
+                    .background(Color.green)
+                    .foregroundColor(.white)
+                    .cornerRadius(5)
+                    .padding(.trailing)
+
+                    Button("Add apiary") {
+                        self.addApiary()
+                    }
+                    .padding()
+                    .background(Color.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(5)
+                    .padding(.leading)
                 }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
             }
             Spacer()
         }
@@ -99,9 +127,23 @@ struct AddApiaryView: View {
     }
     
     private func addApiary() {
+        if myAnnotation.moveOnly {
+            alertTitle = "Error"
+            alertMsg = "You have not chosen a location for your apiary"
+            alert = true
+            return
+        }
+        
         if name.count == 0 {
             alertTitle = "Error"
             alertMsg = "Apiary name cannot be empty"
+            alert = true
+            return
+        }
+        let arr = apiaries.filter { apiary in apiary.name == name && apiary.user?.username == username }
+        if arr.count > 0 {
+            alertTitle = "Error"
+            alertMsg = "You already have apiary with such name"
             alert = true
             return
         }
@@ -118,6 +160,47 @@ struct AddApiaryView: View {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
+    }
+    
+    private func addAnnotation() {
+        self.myAnnotation = MyAnnotation(
+            title: name,
+            subtitle: username! + "'s apiary",
+            coordinate: CLLocationCoordinate2D(
+                latitude: Double(latitude)!,
+                longitude: Double(longitude)!
+            ),
+            moveOnly: false
+        )
+    }
+    
+    private func isCoordinateValid() -> Bool {
+        guard let latitudeAsDouble = Double(latitude) else {
+            self.alertTitle = "Latitude"
+            self.alertMsg = "Latitude must be of type Double"
+            self.alert = true
+            return false
+        }
+        guard let longitudeAsDouble = Double(longitude) else {
+            self.alertTitle = "Longitude"
+            self.alertMsg = "Longitude must be of type Double"
+            self.alert = true
+            return false
+        }
+        
+        guard latitudeAsDouble >= -90 && latitudeAsDouble <= 90 else {
+            self.alertTitle = "Latitude"
+            self.alertMsg = "Latitude must be in range [-90, 90]"
+            self.alert = true
+            return false
+        }
+        guard longitudeAsDouble >= -180 && longitudeAsDouble <= 180 else {
+            self.alertTitle = "Longitude"
+            self.alertMsg = "Longitude must be in range [-180, 180]"
+            self.alert = true
+            return false
+        }
+        return true
     }
 }
 

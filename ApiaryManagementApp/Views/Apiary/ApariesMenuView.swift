@@ -30,7 +30,7 @@ struct ApariesMenuView: View {
             }
             .frame(width: 120)
             .padding()
-            .background(Color.blue)
+            .background(Color.orange)
             .foregroundColor(.white)
             .cornerRadius(10)
             .padding()

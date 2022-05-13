@@ -10,6 +10,8 @@
 import SwiftUI
 import MapKit
 
+private var previousAnnotation: MyAnnotation?
+
 struct MapView: UIViewRepresentable {
     @Binding var myAnnotation : MyAnnotation
     
@@ -22,8 +24,15 @@ struct MapView: UIViewRepresentable {
         let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         let region = MKCoordinateRegion(center: myAnnotation.coordinate, span: span)
         uiView.setRegion(region, animated: true)
-        if !myAnnotation.moveOnly {
-            uiView.addAnnotation(myAnnotation.self)
+        
+        if myAnnotation.moveOnly {
+            return
         }
+        
+        uiView.addAnnotation(myAnnotation.self)
+        if previousAnnotation != nil {
+            uiView.removeAnnotation(previousAnnotation!)
+        }
+        previousAnnotation = myAnnotation.self
     }
 }
