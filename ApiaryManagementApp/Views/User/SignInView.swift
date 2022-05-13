@@ -28,10 +28,11 @@ struct SignInView: View {
                 HStack {
                     Text("Username")
                     TextField("Username", text: $username)
+                        .autocapitalization(.none)
                 }
                 HStack {
                     Text("Password")
-                    TextField("Password", text: $password)
+                    SecureField("Password", text: $password)
                 }
                 Button("Sign In") {
                     self.signIn()
@@ -39,7 +40,7 @@ struct SignInView: View {
                 .padding()
                 .background(Color.blue)
                 .foregroundColor(.white)
-                .cornerRadius(10)
+                .cornerRadius(5)
             }.padding()
         }
         .navigationBarTitle("Sign In")
@@ -49,6 +50,19 @@ struct SignInView: View {
     }
     
     private func signIn() {
+        if username.count == 0 {
+            alertTitle = "Error"
+            alertMsg = "Username field cannot be empty"
+            alert = true
+            return
+        }
+        if password.count == 0 {
+            alertTitle = "Error"
+            alertMsg = "Password field cannot be empty"
+            alert = true
+            return
+        }
+        
         let arr = self.users.filter { user in user.username == self.username }
         if arr.count == 0 {
             self.alertTitle = "Error"

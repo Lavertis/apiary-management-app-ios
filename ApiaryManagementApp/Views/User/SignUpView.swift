@@ -13,6 +13,8 @@ struct SignUpView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)], animation: .default)
     private var users: FetchedResults<User>
     
+    @Environment(\.presentationMode) var presentationMode
+    
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var alert: Bool = false
@@ -25,10 +27,11 @@ struct SignUpView: View {
                 HStack {
                     Text("Username")
                     TextField("Username", text: $username)
+                        .autocapitalization(.none)
                 }
                 HStack {
                     Text("Password")
-                    TextField("Password", text: $password)
+                    SecureField("Password", text: $password)
                 }
                 Button("Sign Up") {
                     self.signUp()
@@ -36,7 +39,7 @@ struct SignUpView: View {
                 .padding()
                 .background(Color.blue)
                 .foregroundColor(.white)
-                .cornerRadius(10)
+                .cornerRadius(5)
             }.padding()
         }
         .navigationBarTitle("Sign Up")
@@ -46,6 +49,18 @@ struct SignUpView: View {
     }
     
     private func signUp() {
+        if username.count == 0 {
+            alertTitle = "Error"
+            alertMsg = "Username field cannot be empty"
+            alert = true
+            return
+        }
+        if password.count == 0 {
+            alertTitle = "Error"
+            alertMsg = "Password field cannot be empty"
+            alert = true
+            return
+        }
         let arr = self.users.filter { user in user.username == self.username }
         if arr.count == 1 {
             self.alertTitle = "Error"
@@ -66,6 +81,8 @@ struct SignUpView: View {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
+        
+        self.presentationMode.wrappedValue.dismiss()
     }
 }
 
