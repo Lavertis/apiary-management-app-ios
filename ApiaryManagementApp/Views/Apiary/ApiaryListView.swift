@@ -20,7 +20,20 @@ struct ApiaryListView: View {
             if self.apiaries.count > 0 {
                 List {
                     ForEach(apiaries.filter { $0.user?.username == username }, id: \.self) { apiary in
-                        Text(apiary.name!)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Name: \(apiary.name!)")
+                                Text("Bee type: \(apiary.beeType!.name!)")
+                                Text("Hive count: \(apiary.hiveCount)")
+                                Text("Latitude: \(apiary.latitude!)")
+                                Text("Latitude: \(apiary.longitude!)")
+                            }
+                            Spacer()
+                            Image(apiary.beeType!.img!)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100)
+                        }
                     }.onDelete(perform: self.deleteApiary)
                 }
             }

@@ -24,7 +24,7 @@ struct AddApiaryView: View {
     @State private var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     @State private var beeType: BeeType?
     @State private var pickerId: Int = 0
-    @State private var hiveCount: Double = 0
+    @State private var hiveCount: Double = 10
     @State private var isEditing = false
     
     @State private var alert: Bool = false
@@ -152,6 +152,8 @@ struct AddApiaryView: View {
         apiary.name = name
         apiary.hiveCount = Int16(hiveCount)
         apiary.beeType = beeType
+        apiary.latitude = Decimal(string: latitude)! as NSDecimalNumber
+        apiary.longitude = Decimal(string: longitude)! as NSDecimalNumber
         apiary.user = users.filter { user in user.username == username }[0]
         
         do {
