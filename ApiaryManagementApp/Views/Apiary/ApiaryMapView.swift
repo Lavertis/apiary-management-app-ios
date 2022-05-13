@@ -30,8 +30,7 @@ struct ApiaryMapView: View {
         VStack {
             Spacer()
             MapViewMultipleAnnotations(myAnnotations: $myAnnotations)
-                .padding(.bottom)
-                .frame(height: UIScreen.main.bounds.size.height * 0.9, alignment: .center)
+                .frame(height: UIScreen.main.bounds.size.height * 0.80)
                 .onAppear {
                     let user = self.users.filter { $0.username == self.username }[0]
                     let apiaries = Array(user.apiary!) as! Array<Apiary>
@@ -50,7 +49,7 @@ struct ApiaryMapView: View {
                         )
                     }
             }
-        }
+        }.navigationBarTitle("Apiaries Map")
     }
 }
 

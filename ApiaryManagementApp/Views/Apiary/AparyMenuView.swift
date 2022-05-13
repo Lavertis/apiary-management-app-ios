@@ -37,7 +37,7 @@ struct AparyMenuView: View {
             .foregroundColor(.white)
             .cornerRadius(5)
             .padding()
-        }.navigationBarTitle("Apiaries")
+        }.navigationBarTitle("Apiary menu")
     }
 }
 

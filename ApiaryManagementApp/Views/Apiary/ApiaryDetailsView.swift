@@ -26,12 +26,12 @@ struct ApiaryDetailsView: View {
     )
     
     @Binding var username: String?
-    @State var apiaryName: String?
+    @State var apiaryName: String = ""
     
     var body: some View {
         VStack {
             MapViewSingleAnnotation(myAnnotation: $myAnnotation)
-                .padding(.bottom)
+                .padding(.vertical)
                 .frame(height: UIScreen.main.bounds.size.height * 0.4, alignment: .center)
             
             HStack {
@@ -47,12 +47,21 @@ struct ApiaryDetailsView: View {
                     .scaledToFit()
                     .frame(width: 100)
                 }
-            }.padding(.horizontal)
+                }.padding()
+            
+            NavigationLink(destination: EditApiaryView(username: $username, name: $apiaryName), label: {
+                Text("Edit")
+                .padding()
+                .background(Color.green)
+                .foregroundColor(.white)
+                .cornerRadius(5)
+                .padding(.leading)
+                })
             
             Spacer()
         }.onAppear {
             self.apiary = self.apiaries.filter {
-                $0.name == self.apiaryName! && $0.user!.username == self.username
+                $0.name == self.apiaryName && $0.user!.username == self.username
             }[0]
             self.myAnnotation = MyAnnotation(
                 title: self.apiary!.name,
@@ -63,7 +72,7 @@ struct ApiaryDetailsView: View {
                 ),
                 moveOnly: false
             )
-        }
+        }.navigationBarTitle("Apiary Details")
     }
 }
 

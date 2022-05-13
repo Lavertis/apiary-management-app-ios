@@ -1,15 +1,15 @@
 //
-//  AddApiaryView.swift
+//  ApiaryEditView.swift
 //  ApiaryManagementApp
 //
-//  Created by Rafał Kuźmiczuk on 12/05/2022.
+//  Created by Rafał Kuźmiczuk on 13/05/2022.
 //  Copyright © 2022 Rafał Kuźmiczuk. All rights reserved.
 //
 
 import SwiftUI
 import MapKit
 
-struct AddApiaryView: View {
+struct EditApiaryView: View {
     @Environment(\.managedObjectContext) private var dbContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \BeeType.name, ascending: true)], animation: .default)
     private var beeTypes: FetchedResults<BeeType>
@@ -22,11 +22,11 @@ struct AddApiaryView: View {
     
     @Binding var username: String?
     
-    @State private var name: String = ""
-    @State private var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    @Binding var name: String
+    @State var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 51.2353112433304, longitude: 22.5528982268185)
     @State private var beeType: BeeType?
     @State private var pickerId: Int = 0
-    @State private var hiveCount: Double = 10
+    @State var hiveCount: Double = 1
     @State private var isEditing = false
     
     @State private var alert: Bool = false
@@ -44,6 +44,8 @@ struct AddApiaryView: View {
     )
     @State var latitude: String = "51.2353112433304"
     @State var longitude: String = "22.5528982268185"
+    
+    @State var apiary: Apiary?
     
     var body: some View {
         VStack {
@@ -69,7 +71,7 @@ struct AddApiaryView: View {
             Group {
                 HStack {
                     Text("Name")
-                    TextField("Name", text: $name)
+                    TextField("Name", text: $name.self)
                         .autocapitalization(.none)
                 }
                 .padding(.horizontal).padding(.top)
@@ -110,8 +112,8 @@ struct AddApiaryView: View {
                     .cornerRadius(5)
                     .padding(.trailing)
 
-                    Button("Add apiary") {
-                        self.addApiary()
+                    Button("Save changes") {
+                        self.editApiary()
                     }
                     .padding()
                     .background(Color.orange)
@@ -122,13 +124,30 @@ struct AddApiaryView: View {
             }
             Spacer()
         }
-        .navigationBarTitle("New Apiary")
+        .navigationBarTitle("Apiary Edit")
         .alert(isPresented: $alert) {
             Alert(title: Text(alertTitle), message: Text(alertMsg))
         }
+        .onAppear {
+            self.apiary = self.apiaries.filter { $0.name == self.name && $0.user!.username == self.username }[0]
+            self.name = self.apiary!.name!
+            self.hiveCount = Double(self.apiary!.hiveCount)
+            self.location.latitude = self.apiary!.latitude as! CLLocationDegrees
+            self.location.longitude = self.apiary!.longitude as! CLLocationDegrees
+            
+            self.myAnnotation = MyAnnotation(
+                title: self.apiary!.name,
+                subtitle: "\(self.username!)'s apiary",
+                coordinate: CLLocationCoordinate2D(
+                    latitude: self.apiary!.latitude as! CLLocationDegrees,
+                    longitude: self.apiary!.longitude as! CLLocationDegrees
+                ),
+                moveOnly: false
+            )
+        }
     }
     
-    private func addApiary() {
+    private func editApiary() {
         if myAnnotation.moveOnly {
             alertTitle = "Error"
             alertMsg = "You have not chosen a location for your apiary"
@@ -143,20 +162,19 @@ struct AddApiaryView: View {
             return
         }
         let arr = apiaries.filter { apiary in apiary.name == name && apiary.user?.username == username }
-        if arr.count > 0 {
+        if arr.count > 0 && arr[0].name != name {
             alertTitle = "Error"
             alertMsg = "You already have apiary with such name"
             alert = true
             return
         }
         
-        let apiary = Apiary(context: dbContext)
-        apiary.name = name
-        apiary.hiveCount = Int16(hiveCount)
-        apiary.beeType = beeType
-        apiary.latitude = Decimal(string: latitude)! as NSDecimalNumber
-        apiary.longitude = Decimal(string: longitude)! as NSDecimalNumber
-        apiary.user = users.filter { user in user.username == username }[0]
+        apiary!.name = name
+        apiary!.hiveCount = Int16(hiveCount)
+        apiary!.beeType = beeType
+        apiary!.latitude = Decimal(string: latitude)! as NSDecimalNumber
+        apiary!.longitude = Decimal(string: longitude)! as NSDecimalNumber
+        apiary!.user = users.filter { user in user.username == username }[0]
         
         do {
             try dbContext.save()
@@ -210,8 +228,8 @@ struct AddApiaryView: View {
     }
 }
 
-struct AddApiaryView_Previews: PreviewProvider {
+struct ApiaryEditView_Previews: PreviewProvider {
     static var previews: some View {
-        AddApiaryView(username: .constant("Username"))
+        EditApiaryView(username: .constant("Username"), name: .constant("Apiary name"), location: CLLocationCoordinate2D(latitude: 0, longitude: 0), hiveCount: 1)
     }
 }

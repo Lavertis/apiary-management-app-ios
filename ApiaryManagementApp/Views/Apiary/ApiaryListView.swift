@@ -21,7 +21,7 @@ struct ApiaryListView: View {
                 List {
                     ForEach(apiaries.filter { $0.user?.username == username }, id: \.self) { apiary in
                         NavigationLink(
-                            destination: ApiaryDetailsView(username: self.$username, apiaryName: apiary.name),
+                            destination: ApiaryDetailsView(username: self.$username, apiaryName: apiary.name!),
                             label: {
                                 HStack {
                                     VStack(alignment: .leading) {
@@ -37,14 +37,14 @@ struct ApiaryListView: View {
                                     .scaledToFit()
                                     .frame(width: 100)
                                 }
-                        })
+                        }).padding(.vertical)
                     }.onDelete(perform: self.deleteApiary)
                 }
             }
             else {
                 Text("You don't have any apiary")
             }
-        }.navigationBarTitle("My apiaries")
+        }.navigationBarTitle("My Apiaries")
     }
     
     private func deleteApiary(offsets: IndexSet) {
