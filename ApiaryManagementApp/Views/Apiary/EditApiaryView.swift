@@ -42,8 +42,8 @@ struct EditApiaryView: View {
         ),
         moveOnly: true
     )
-    @State var latitude: String = "51.2353112433304"
-    @State var longitude: String = "22.5528982268185"
+    @State var latitude: String = ""
+    @State var longitude: String = ""
     
     @State var apiary: Apiary?
     
@@ -95,9 +95,6 @@ struct EditApiaryView: View {
                 }
                 .id(pickerId)
                 .pickerStyle(SegmentedPickerStyle())
-                .onAppear {
-                    self.beeType = self.beeTypes.first
-                }
                 .padding(.bottom)
                 
                 HStack {
@@ -131,9 +128,12 @@ struct EditApiaryView: View {
         .onAppear {
             self.apiary = self.apiaries.filter { $0.name == self.name && $0.user!.username == self.username }[0]
             self.name = self.apiary!.name!
+            self.beeType = self.apiary!.beeType
             self.hiveCount = Double(self.apiary!.hiveCount)
             self.location.latitude = self.apiary!.latitude as! CLLocationDegrees
             self.location.longitude = self.apiary!.longitude as! CLLocationDegrees
+            self.latitude = String(self.location.latitude)
+            self.longitude = String(self.location.longitude)
             
             self.myAnnotation = MyAnnotation(
                 title: self.apiary!.name,
@@ -187,6 +187,7 @@ struct EditApiaryView: View {
     }
     
     private func addAnnotation() {
+        print(123)
         self.myAnnotation = MyAnnotation(
             title: name,
             subtitle: username! + "'s apiary",

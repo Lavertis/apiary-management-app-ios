@@ -10,8 +10,6 @@
 import SwiftUI
 import MapKit
 
-private var previousAnnotation: MyAnnotation?
-
 struct MapViewSingleAnnotation: UIViewRepresentable {
     @Binding var myAnnotation : MyAnnotation
     
@@ -29,10 +27,7 @@ struct MapViewSingleAnnotation: UIViewRepresentable {
             return
         }
         
-        if previousAnnotation != nil {
-            uiView.removeAnnotation(previousAnnotation!)
-        }
+        uiView.removeAnnotations(uiView.annotations)
         uiView.addAnnotation(myAnnotation.self)
-        previousAnnotation = myAnnotation.self
     }
 }

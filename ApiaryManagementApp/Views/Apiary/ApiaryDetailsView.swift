@@ -27,6 +27,7 @@ struct ApiaryDetailsView: View {
     
     @Binding var username: String?
     @State var apiaryName: String = ""
+    @State var isEditShown: Bool = false
     
     var body: some View {
         VStack {
@@ -49,20 +50,32 @@ struct ApiaryDetailsView: View {
                 }
                 }.padding()
             
-            NavigationLink(destination: EditApiaryView(username: $username, name: $apiaryName), label: {
-                Text("Edit")
-                .padding()
-                .background(Color.green)
-                .foregroundColor(.white)
-                .cornerRadius(5)
-                .padding(.leading)
-                })
+            Button("Edit") {
+                self.isEditShown.toggle()
+            }
+            .padding()
+            .background(Color.green)
+            .foregroundColor(.white)
+            .cornerRadius(5)
+            .padding(.leading)
+            .sheet(isPresented: $isEditShown, onDismiss: {
+                self.myAnnotation = MyAnnotation(
+                    title: self.apiary!.name,
+                    subtitle: "\(self.username!)'s apiary",
+                    coordinate: CLLocationCoordinate2D(
+                        latitude: self.apiary!.latitude as! CLLocationDegrees,
+                        longitude: self.apiary!.longitude as! CLLocationDegrees
+                    ),
+                    moveOnly: false
+                )
+            },content: {
+                EditApiaryView(username: self.$username, name: self.$apiaryName)
+                .environment(\.managedObjectContext, self.dbContext)
+            })
             
             Spacer()
         }.onAppear {
-            self.apiary = self.apiaries.filter {
-                $0.name == self.apiaryName && $0.user!.username == self.username
-            }[0]
+            self.apiary = self.apiaries.filter { $0.name == self.apiaryName && $0.user!.username == self.username }[0]
             self.myAnnotation = MyAnnotation(
                 title: self.apiary!.name,
                 subtitle: "\(self.username!)'s apiary",
