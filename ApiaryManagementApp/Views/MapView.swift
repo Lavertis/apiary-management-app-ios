@@ -29,10 +29,10 @@ struct MapView: UIViewRepresentable {
             return
         }
         
-        uiView.addAnnotation(myAnnotation.self)
         if previousAnnotation != nil {
             uiView.removeAnnotation(previousAnnotation!)
         }
+        uiView.addAnnotation(myAnnotation.self)
         previousAnnotation = myAnnotation.self
     }
 }
