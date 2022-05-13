@@ -18,6 +18,8 @@ struct AddApiaryView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)], animation: .default)
     private var users: FetchedResults<User>
     
+    @Environment(\.presentationMode) var presentationMode
+    
     @Binding var username: String?
     
     @State private var name: String = ""
@@ -162,6 +164,8 @@ struct AddApiaryView: View {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
+        
+        self.presentationMode.wrappedValue.dismiss()
     }
     
     private func addAnnotation() {

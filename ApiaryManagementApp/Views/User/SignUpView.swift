@@ -13,6 +13,8 @@ struct SignUpView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)], animation: .default)
     private var users: FetchedResults<User>
     
+    @Environment(\.presentationMode) var presentationMode
+    
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var alert: Bool = false
@@ -79,6 +81,8 @@ struct SignUpView: View {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
+        
+        self.presentationMode.wrappedValue.dismiss()
     }
 }
 
