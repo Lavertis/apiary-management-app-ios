@@ -50,7 +50,7 @@ struct EditApiaryView: View {
     var body: some View {
         VStack {
             MapViewSingleAnnotation(myAnnotation: $myAnnotation)
-                .padding(.vertical)
+                .padding(.bottom)
                 .frame(height: UIScreen.main.bounds.size.height * 0.3, alignment: .center)
                 .alert(isPresented: $alert) {
                     Alert(
@@ -121,7 +121,6 @@ struct EditApiaryView: View {
             }
             Spacer()
         }
-        .navigationBarTitle("Apiary Edit")
         .alert(isPresented: $alert) {
             Alert(title: Text(alertTitle), message: Text(alertMsg))
         }

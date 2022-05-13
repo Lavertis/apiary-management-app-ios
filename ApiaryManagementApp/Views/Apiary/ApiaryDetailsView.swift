@@ -69,8 +69,16 @@ struct ApiaryDetailsView: View {
                     moveOnly: false
                 )
             },content: {
-                EditApiaryView(username: self.$username, name: self.$apiaryName)
-                .environment(\.managedObjectContext, self.dbContext)
+                NavigationView {
+                    EditApiaryView(username: self.$username, name: self.$apiaryName)
+                    .environment(\.managedObjectContext, self.dbContext)
+                    .navigationBarTitle(Text("Apiary Details Edit"), displayMode: .inline)
+                    .navigationBarItems(trailing: Button(action: {
+                        self.isEditShown = false
+                    }) {
+                        Text("Close").bold()
+                    })
+                }
             })
             
             Spacer()
