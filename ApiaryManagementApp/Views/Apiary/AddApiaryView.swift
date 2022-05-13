@@ -47,7 +47,7 @@ struct AddApiaryView: View {
     
     var body: some View {
         VStack {
-            MapView(myAnnotation: $myAnnotation)
+            MapViewSingleAnnotation(myAnnotation: $myAnnotation)
                 .padding(.bottom)
                 .frame(height: UIScreen.main.bounds.size.height * 0.3, alignment: .center)
                 .alert(isPresented: $alert) {

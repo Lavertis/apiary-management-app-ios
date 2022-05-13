@@ -13,8 +13,6 @@ struct ApiaryDetailsView: View {
     @Environment(\.managedObjectContext) private var dbContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Apiary.name, ascending: true)], animation: .default)
     private var apiaries: FetchedResults<Apiary>
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)], animation: .default)
-    private var users: FetchedResults<User>
     
     @State private var apiary: Apiary?
     @State var myAnnotation = MyAnnotation(
@@ -32,7 +30,7 @@ struct ApiaryDetailsView: View {
     
     var body: some View {
         VStack {
-            MapView(myAnnotation: $myAnnotation)
+            MapViewSingleAnnotation(myAnnotation: $myAnnotation)
                 .padding(.bottom)
                 .frame(height: UIScreen.main.bounds.size.height * 0.4, alignment: .center)
             
@@ -43,10 +41,12 @@ struct ApiaryDetailsView: View {
                     Text("Hive count: \(Int(apiary?.hiveCount ?? 0))")
                 }
                 Spacer()
-                Image(apiary?.beeType!.img! ?? "")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100)
+                if apiary != nil {
+                    Image(apiary!.beeType!.img!)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100)
+                }
             }.padding(.horizontal)
             
             Spacer()

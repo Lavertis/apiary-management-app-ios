@@ -15,14 +15,16 @@
 		F81C5A83282D732400F86276 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F81C5A82282D732400F86276 /* Preview Assets.xcassets */; };
 		F81C5A86282D732400F86276 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F81C5A84282D732400F86276 /* LaunchScreen.storyboard */; };
 		F841E143282EDF0D00F60999 /* ApiaryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F841E142282EDF0D00F60999 /* ApiaryDetailsView.swift */; };
+		F841E146282EF01F00F60999 /* ApiaryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F841E145282EF01F00F60999 /* ApiaryMapView.swift */; };
+		F841E149282EF40200F60999 /* MapViewMultipleAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F841E148282EF40200F60999 /* MapViewMultipleAnnotations.swift */; };
 		F882F921282D7A3000A481A8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F920282D7A3000A481A8 /* HomeView.swift */; };
 		F882F926282D80EF00A481A8 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F925282D80EF00A481A8 /* SignUpView.swift */; };
 		F882F928282D9C4300A481A8 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F927282D9C4300A481A8 /* UserListView.swift */; };
 		F882F92A282DAD9500A481A8 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F929282DAD9500A481A8 /* SignInView.swift */; };
-		F882F92C282DB67000A481A8 /* ApariesMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F92B282DB67000A481A8 /* ApariesMenuView.swift */; };
+		F882F92C282DB67000A481A8 /* AparyMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F92B282DB67000A481A8 /* AparyMenuView.swift */; };
 		F882F92E282DB86D00A481A8 /* AddApiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F92D282DB86D00A481A8 /* AddApiaryView.swift */; };
 		F882F930282DB87900A481A8 /* BeeTypeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F92F282DB87900A481A8 /* BeeTypeListView.swift */; };
-		F882F934282DBA6B00A481A8 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F933282DBA6B00A481A8 /* MapView.swift */; };
+		F882F934282DBA6B00A481A8 /* MapViewSingleAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F933282DBA6B00A481A8 /* MapViewSingleAnnotation.swift */; };
 		F882F939282DBA9A00A481A8 /* MyAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F938282DBA9A00A481A8 /* MyAnnotation.swift */; };
 		F882F93E282DCD0100A481A8 /* ApiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F93D282DCD0100A481A8 /* ApiaryListView.swift */; };
 /* End PBXBuildFile section */
@@ -38,14 +40,16 @@
 		F81C5A85282D732400F86276 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F81C5A87282D732400F86276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F841E142282EDF0D00F60999 /* ApiaryDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiaryDetailsView.swift; sourceTree = "<group>"; };
+		F841E145282EF01F00F60999 /* ApiaryMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiaryMapView.swift; sourceTree = "<group>"; };
+		F841E148282EF40200F60999 /* MapViewMultipleAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewMultipleAnnotations.swift; sourceTree = "<group>"; };
 		F882F920282D7A3000A481A8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F882F925282D80EF00A481A8 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		F882F927282D9C4300A481A8 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		F882F929282DAD9500A481A8 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		F882F92B282DB67000A481A8 /* ApariesMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApariesMenuView.swift; sourceTree = "<group>"; };
+		F882F92B282DB67000A481A8 /* AparyMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AparyMenuView.swift; sourceTree = "<group>"; };
 		F882F92D282DB86D00A481A8 /* AddApiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApiaryView.swift; sourceTree = "<group>"; };
 		F882F92F282DB87900A481A8 /* BeeTypeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeeTypeListView.swift; sourceTree = "<group>"; };
-		F882F933282DBA6B00A481A8 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		F882F933282DBA6B00A481A8 /* MapViewSingleAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewSingleAnnotation.swift; sourceTree = "<group>"; };
 		F882F938282DBA9A00A481A8 /* MyAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnnotation.swift; sourceTree = "<group>"; };
 		F882F93D282DCD0100A481A8 /* ApiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiaryListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,14 +114,23 @@
 			path = BeeType;
 			sourceTree = "<group>";
 		};
+		F841E147282EF3EF00F60999 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				F882F933282DBA6B00A481A8 /* MapViewSingleAnnotation.swift */,
+				F841E148282EF40200F60999 /* MapViewMultipleAnnotations.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		F882F91C282D799300A481A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F841E147282EF3EF00F60999 /* Map */,
 				F841E144282EDF8000F60999 /* BeeType */,
 				F882F932282DB89200A481A8 /* Apiary */,
 				F882F931282DB88300A481A8 /* User */,
 				F882F920282D7A3000A481A8 /* HomeView.swift */,
-				F882F933282DBA6B00A481A8 /* MapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -135,10 +148,11 @@
 		F882F932282DB89200A481A8 /* Apiary */ = {
 			isa = PBXGroup;
 			children = (
-				F882F92B282DB67000A481A8 /* ApariesMenuView.swift */,
+				F882F92B282DB67000A481A8 /* AparyMenuView.swift */,
 				F882F92D282DB86D00A481A8 /* AddApiaryView.swift */,
 				F882F93D282DCD0100A481A8 /* ApiaryListView.swift */,
 				F841E142282EDF0D00F60999 /* ApiaryDetailsView.swift */,
+				F841E145282EF01F00F60999 /* ApiaryMapView.swift */,
 			);
 			path = Apiary;
 			sourceTree = "<group>";
@@ -223,18 +237,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				F882F92E282DB86D00A481A8 /* AddApiaryView.swift in Sources */,
-				F882F934282DBA6B00A481A8 /* MapView.swift in Sources */,
+				F882F934282DBA6B00A481A8 /* MapViewSingleAnnotation.swift in Sources */,
+				F841E149282EF40200F60999 /* MapViewMultipleAnnotations.swift in Sources */,
 				F882F93E282DCD0100A481A8 /* ApiaryListView.swift in Sources */,
 				F882F928282D9C4300A481A8 /* UserListView.swift in Sources */,
 				F81C5A7C282D732300F86276 /* ApiaryManagementApp.xcdatamodeld in Sources */,
 				F81C5A77282D732300F86276 /* AppDelegate.swift in Sources */,
-				F882F92C282DB67000A481A8 /* ApariesMenuView.swift in Sources */,
+				F882F92C282DB67000A481A8 /* AparyMenuView.swift in Sources */,
 				F81C5A7E282D732300F86276 /* ContentView.swift in Sources */,
 				F882F930282DB87900A481A8 /* BeeTypeListView.swift in Sources */,
 				F81C5A79282D732300F86276 /* SceneDelegate.swift in Sources */,
 				F882F926282D80EF00A481A8 /* SignUpView.swift in Sources */,
 				F882F92A282DAD9500A481A8 /* SignInView.swift in Sources */,
 				F882F921282D7A3000A481A8 /* HomeView.swift in Sources */,
+				F841E146282EF01F00F60999 /* ApiaryMapView.swift in Sources */,
 				F841E143282EDF0D00F60999 /* ApiaryDetailsView.swift in Sources */,
 				F882F939282DBA9A00A481A8 /* MyAnnotation.swift in Sources */,
 			);

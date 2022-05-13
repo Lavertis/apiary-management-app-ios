@@ -12,7 +12,7 @@ import MapKit
 
 private var previousAnnotation: MyAnnotation?
 
-struct MapView: UIViewRepresentable {
+struct MapViewSingleAnnotation: UIViewRepresentable {
     @Binding var myAnnotation : MyAnnotation
     
     func makeUIView(context: Context) -> MKMapView {

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ApariesMenuView: View {
+struct AparyMenuView: View {
     @Binding var username: String?
     
     @Environment(\.managedObjectContext) private var dbContext
@@ -24,11 +24,14 @@ struct ApariesMenuView: View {
                 NavigationLink(destination: ApiaryListView(username: $username), label: {
                     Text("My Apiaries")
                 })
+                NavigationLink(destination: ApiaryMapView(username: $username), label: {
+                    Text("My Apiaries Map")
+                })
                 NavigationLink(destination: BeeTypeListView(), label: {
                     Text("Bee Types")
                 })
             }
-            .frame(width: 120)
+            .frame(width: 130)
             .padding()
             .background(Color.orange)
             .foregroundColor(.white)
@@ -40,6 +43,6 @@ struct ApariesMenuView: View {
 
 struct ApariesMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        ApariesMenuView(username: .constant("Username"))
+        AparyMenuView(username: .constant("Username"))
     }
 }

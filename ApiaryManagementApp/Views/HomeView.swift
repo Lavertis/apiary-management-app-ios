@@ -35,7 +35,7 @@ struct HomeView: View {
                                 Text("User list")
                             })
                         }
-                        .frame(width: 100)
+                        .frame(width: 115)
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
@@ -43,11 +43,11 @@ struct HomeView: View {
                         .padding()
                     }
                     else {
-                        ApariesMenuView(username: self.$username)
+                        AparyMenuView(username: self.$username)
                         Button("Logout") {
                             self.username = nil
                         }
-                        .frame(width: 120)
+                        .frame(width: 130)
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
