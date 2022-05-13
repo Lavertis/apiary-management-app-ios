@@ -32,7 +32,7 @@ struct ApariesMenuView: View {
             .padding()
             .background(Color.orange)
             .foregroundColor(.white)
-            .cornerRadius(10)
+            .cornerRadius(5)
             .padding()
         }.navigationBarTitle("Apiaries")
     }

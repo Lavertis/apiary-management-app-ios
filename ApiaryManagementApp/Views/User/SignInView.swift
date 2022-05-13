@@ -40,7 +40,7 @@ struct SignInView: View {
                 .padding()
                 .background(Color.blue)
                 .foregroundColor(.white)
-                .cornerRadius(10)
+                .cornerRadius(5)
             }.padding()
         }
         .navigationBarTitle("Sign In")

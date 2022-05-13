@@ -39,7 +39,7 @@ struct HomeView: View {
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
-                        .cornerRadius(10)
+                        .cornerRadius(5)
                         .padding()
                     }
                     else {
@@ -51,7 +51,7 @@ struct HomeView: View {
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
-                        .cornerRadius(10)
+                        .cornerRadius(5)
                         .padding()
                     }
                 }
