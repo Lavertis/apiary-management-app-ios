@@ -13,7 +13,7 @@ struct SignUpView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)], animation: .default)
     private var users: FetchedResults<User>
     
-    @Environment(\.presentationMode) var presentationMode
+    @Binding var isShown: Bool
     
     @State private var username: String = ""
     @State private var password: String = ""
@@ -23,24 +23,23 @@ struct SignUpView: View {
     
     var body: some View {
         VStack {
-            Group {
-                HStack {
-                    Text("Username")
-                    TextField("Username", text: $username)
-                        .autocapitalization(.none)
-                }
-                HStack {
-                    Text("Password")
-                    SecureField("Password", text: $password)
-                }
-                Button("Sign Up") {
-                    self.signUp()
-                }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(5)
+            HStack {
+                Text("Username")
+                TextField("Username", text: $username)
+                    .autocapitalization(.none)
             }.padding()
+            HStack {
+                Text("Password")
+                SecureField("Password", text: $password)
+            }.padding(.horizontal)
+            Button("Sign Up") {
+                self.signUp()
+            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(5)
+            .padding()
         }
         .navigationBarTitle("Sign Up")
         .alert(isPresented: $alert) {
@@ -74,20 +73,18 @@ struct SignUpView: View {
         user.password = password
         do {
             try dbContext.save()
-            self.alertTitle = "Information"
-            self.alertMsg = "Account created"
-            self.alert = true
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
         
-        self.presentationMode.wrappedValue.dismiss()
+        print("User created")
+        self.isShown.toggle()
     }
 }
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
+        SignUpView(isShown: .constant(true))
     }
 }

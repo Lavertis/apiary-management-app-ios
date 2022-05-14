@@ -70,7 +70,7 @@ struct ApiaryDetailsView: View {
                 )
             },content: {
                 NavigationView {
-                    EditApiaryView(username: self.$username, name: self.$apiaryName)
+                    EditApiaryView(isShown: self.$isEditShown, username: self.$username, name: self.$apiaryName)
                     .environment(\.managedObjectContext, self.dbContext)
                     .navigationBarTitle(Text("Apiary Details Edit"), displayMode: .inline)
                     .navigationBarItems(trailing: Button(action: {

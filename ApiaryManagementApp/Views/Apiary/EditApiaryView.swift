@@ -18,9 +18,9 @@ struct EditApiaryView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)], animation: .default)
     private var users: FetchedResults<User>
     
-    @Environment(\.presentationMode) var presentationMode
-    
+    @Binding var isShown: Bool
     @Binding var username: String?
+    @State var apiary: Apiary?
     
     @Binding var name: String
     @State var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 51.2353112433304, longitude: 22.5528982268185)
@@ -28,11 +28,6 @@ struct EditApiaryView: View {
     @State private var pickerId: Int = 0
     @State var hiveCount: Double = 1
     @State private var isEditing = false
-    
-    @State private var alert: Bool = false
-    @State private var alertTitle: String = ""
-    @State private var alertMsg: String = ""
-    
     @State var myAnnotation = MyAnnotation(
         title: "Katedra Informatyki",
         subtitle: "Politechnika Lubelska",
@@ -45,7 +40,9 @@ struct EditApiaryView: View {
     @State var latitude: String = ""
     @State var longitude: String = ""
     
-    @State var apiary: Apiary?
+    @State private var alert: Bool = false
+    @State private var alertTitle: String = ""
+    @State private var alertMsg: String = ""
     
     var body: some View {
         VStack {
@@ -182,11 +179,11 @@ struct EditApiaryView: View {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
         
-        self.presentationMode.wrappedValue.dismiss()
+        print("Apiary updated")
+        self.isShown.toggle()
     }
     
     private func addAnnotation() {
-        print(123)
         self.myAnnotation = MyAnnotation(
             title: name,
             subtitle: username! + "'s apiary",
@@ -230,6 +227,6 @@ struct EditApiaryView: View {
 
 struct ApiaryEditView_Previews: PreviewProvider {
     static var previews: some View {
-        EditApiaryView(username: .constant("Username"), name: .constant("Apiary name"), location: CLLocationCoordinate2D(latitude: 0, longitude: 0), hiveCount: 1)
+        EditApiaryView(isShown: .constant(true), username: .constant("Username"), name: .constant("Apiary name"), location: CLLocationCoordinate2D(latitude: 0, longitude: 0), hiveCount: 1)
     }
 }

@@ -22,26 +22,48 @@ struct SignInView: View {
     
     @Binding var globalUsername: String?
     
+    @State private var isSignUpShown: Bool = false
+    
     var body: some View {
         VStack {
-            Group {
-                HStack {
-                    Text("Username")
-                    TextField("Username", text: $username)
-                        .autocapitalization(.none)
-                }
-                HStack {
-                    Text("Password")
-                    SecureField("Password", text: $password)
-                }
-                Button("Sign In") {
-                    self.signIn()
-                }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(5)
+            HStack {
+                Text("Username")
+                TextField("Username", text: $username)
+                    .autocapitalization(.none)
             }.padding()
+            HStack {
+                Text("Password")
+                SecureField("Password", text: $password)
+            }.padding(.horizontal)
+            
+            Button("Don't have account? Sign Up") {
+                self.isSignUpShown.toggle()
+            }
+            .padding()
+            .sheet(isPresented: $isSignUpShown, onDismiss: {
+                self.alertTitle = "Information"
+                self.alertMsg = "Account created. You can now log in."
+                self.alert = true
+            }) {
+                NavigationView {
+                    SignUpView(isShown: self.$isSignUpShown)
+                    .environment(\.managedObjectContext, self.dbContext)
+                    .navigationBarTitle(Text("Sign Up"), displayMode: .inline)
+                    .navigationBarItems(trailing: Button(action: {
+                        self.isSignUpShown = false
+                    }) {
+                        Text("Close").bold()
+                    })
+                }
+            }
+            
+            Button("Sign In") {
+                self.signIn()
+            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(5)
         }
         .navigationBarTitle("Sign In")
         .alert(isPresented: $alert) {
