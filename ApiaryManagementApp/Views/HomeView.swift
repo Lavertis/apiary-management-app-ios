@@ -28,9 +28,6 @@ struct HomeView: View {
                             NavigationLink(destination: SignInView(globalUsername: self.$username), label: {
                                 Text("Sign In")
                             })
-                            NavigationLink(destination: SignUpView(), label: {
-                                Text("Sign Up")
-                            })
                             NavigationLink(destination: UserListView(), label: {
                                 Text("User list")
                             })
