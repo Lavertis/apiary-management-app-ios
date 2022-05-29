@@ -14,7 +14,7 @@ struct HomeView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \BeeType.name, ascending: true)], animation: .default)
     private var beeTypes: FetchedResults<BeeType>
     
-    @State var username: String? = "user"
+    @State var username: String?
     
     var body: some View {
         NavigationView {
@@ -28,6 +28,9 @@ struct HomeView: View {
                             NavigationLink(destination: SignInView(globalUsername: self.$username), label: {
                                 Text("Sign In")
                             })
+                            NavigationLink(destination: SignUpView(), label: {
+                                Text("Sign Up")
+                            })
                             NavigationLink(destination: UserListView(), label: {
                                 Text("User list")
                             })
@@ -40,7 +43,7 @@ struct HomeView: View {
                         .padding()
                     }
                     else {
-                        AparyMenuView(username: self.$username)
+                        ApiaryMenuView(username: self.$username)
                         Button("Logout") {
                             self.username = nil
                         }

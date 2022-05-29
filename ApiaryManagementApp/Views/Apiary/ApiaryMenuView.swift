@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AparyMenuView: View {
+struct ApiaryMenuView: View {
     @Binding var username: String?
     
     @Environment(\.managedObjectContext) private var dbContext
@@ -43,6 +43,6 @@ struct AparyMenuView: View {
 
 struct ApariesMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        AparyMenuView(username: .constant("Username"))
+        ApiaryMenuView(username: .constant("Username"))
     }
 }

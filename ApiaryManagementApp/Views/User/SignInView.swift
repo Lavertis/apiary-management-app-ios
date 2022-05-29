@@ -22,8 +22,6 @@ struct SignInView: View {
     
     @Binding var globalUsername: String?
     
-    @State private var isSignUpShown: Bool = false
-    
     var body: some View {
         VStack {
             HStack {
@@ -35,27 +33,6 @@ struct SignInView: View {
                 Text("Password")
                 SecureField("Password", text: $password)
             }.padding(.horizontal)
-            
-            Button("Don't have account? Sign Up") {
-                self.isSignUpShown.toggle()
-            }
-            .padding()
-            .sheet(isPresented: $isSignUpShown, onDismiss: {
-                self.alertTitle = "Information"
-                self.alertMsg = "Account created. You can now log in."
-                self.alert = true
-            }) {
-                NavigationView {
-                    SignUpView(isShown: self.$isSignUpShown)
-                    .environment(\.managedObjectContext, self.dbContext)
-                    .navigationBarTitle(Text("Sign Up"), displayMode: .inline)
-                    .navigationBarItems(trailing: Button(action: {
-                        self.isSignUpShown = false
-                    }) {
-                        Text("Close").bold()
-                    })
-                }
-            }
             
             Button("Sign In") {
                 self.signIn()

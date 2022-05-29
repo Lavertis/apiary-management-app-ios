@@ -37,13 +37,13 @@ struct AddApiaryView: View {
         title: "Katedra Informatyki",
         subtitle: "Politechnika Lubelska",
         coordinate: CLLocationCoordinate2D(
-            latitude: 51.2353112433304,
-            longitude: 22.5528982268185
+            latitude: 51.235,
+            longitude: 22.553
         ),
         moveOnly: true
     )
-    @State var latitude: String = "51.2353112433304"
-    @State var longitude: String = "22.5528982268185"
+    @State var latitude: String = "51.235"
+    @State var longitude: String = "22.553"
     
     var body: some View {
         VStack {
