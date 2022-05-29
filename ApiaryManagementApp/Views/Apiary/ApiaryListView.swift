@@ -17,7 +17,7 @@ struct ApiaryListView: View {
     
     var body: some View {
         VStack {
-            if self.apiaries.count > 0 {
+            if (self.apiaries.filter { $0.user?.username == username }).count > 0 {
                 List {
                     ForEach(apiaries.filter { $0.user?.username == username }, id: \.self) { apiary in
                         NavigationLink(

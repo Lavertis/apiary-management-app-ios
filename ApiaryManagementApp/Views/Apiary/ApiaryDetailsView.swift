@@ -19,8 +19,8 @@ struct ApiaryDetailsView: View {
         title: "Katedra Informatyki",
         subtitle: "Politechnika Lubelska",
         coordinate: CLLocationCoordinate2D(
-            latitude: 51.2353112433304,
-            longitude: 22.5528982268185
+            latitude: 51.235,
+            longitude: 22.553
         ),
         moveOnly: false
     )

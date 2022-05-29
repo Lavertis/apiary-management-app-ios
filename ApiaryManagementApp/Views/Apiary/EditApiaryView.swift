@@ -23,7 +23,10 @@ struct EditApiaryView: View {
     @State var apiary: Apiary?
     
     @Binding var name: String
-    @State var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 51.2353112433304, longitude: 22.5528982268185)
+    @State var location: CLLocationCoordinate2D = CLLocationCoordinate2D(
+        latitude: 51.235,
+        longitude: 22.553
+    )
     @State private var beeType: BeeType?
     @State private var pickerId: Int = 0
     @State var hiveCount: Double = 1
@@ -32,8 +35,8 @@ struct EditApiaryView: View {
         title: "Katedra Informatyki",
         subtitle: "Politechnika Lubelska",
         coordinate: CLLocationCoordinate2D(
-            latitude: 51.2353112433304,
-            longitude: 22.5528982268185
+            latitude: 51.235,
+            longitude: 22.553
         ),
         moveOnly: true
     )

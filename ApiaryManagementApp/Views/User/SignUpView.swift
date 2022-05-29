@@ -13,8 +13,6 @@ struct SignUpView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)], animation: .default)
     private var users: FetchedResults<User>
     
-    @Binding var isShown: Bool
-    
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var alert: Bool = false
@@ -78,13 +76,17 @@ struct SignUpView: View {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
         
+        self.alertTitle = "Information"
+        self.alertMsg = "Account created. You can now log in."
+        self.alert = true
+        username = ""
+        password = ""
         print("User created")
-        self.isShown.toggle()
     }
 }
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView(isShown: .constant(true))
+        SignUpView()
     }
 }

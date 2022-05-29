@@ -21,7 +21,7 @@
 		F882F926282D80EF00A481A8 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F925282D80EF00A481A8 /* SignUpView.swift */; };
 		F882F928282D9C4300A481A8 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F927282D9C4300A481A8 /* UserListView.swift */; };
 		F882F92A282DAD9500A481A8 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F929282DAD9500A481A8 /* SignInView.swift */; };
-		F882F92C282DB67000A481A8 /* AparyMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F92B282DB67000A481A8 /* AparyMenuView.swift */; };
+		F882F92C282DB67000A481A8 /* ApiaryMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F92B282DB67000A481A8 /* ApiaryMenuView.swift */; };
 		F882F92E282DB86D00A481A8 /* AddApiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F92D282DB86D00A481A8 /* AddApiaryView.swift */; };
 		F882F930282DB87900A481A8 /* BeeTypeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F92F282DB87900A481A8 /* BeeTypeListView.swift */; };
 		F882F934282DBA6B00A481A8 /* MapViewSingleAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882F933282DBA6B00A481A8 /* MapViewSingleAnnotation.swift */; };
@@ -47,7 +47,7 @@
 		F882F925282D80EF00A481A8 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		F882F927282D9C4300A481A8 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		F882F929282DAD9500A481A8 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		F882F92B282DB67000A481A8 /* AparyMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AparyMenuView.swift; sourceTree = "<group>"; };
+		F882F92B282DB67000A481A8 /* ApiaryMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiaryMenuView.swift; sourceTree = "<group>"; };
 		F882F92D282DB86D00A481A8 /* AddApiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApiaryView.swift; sourceTree = "<group>"; };
 		F882F92F282DB87900A481A8 /* BeeTypeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeeTypeListView.swift; sourceTree = "<group>"; };
 		F882F933282DBA6B00A481A8 /* MapViewSingleAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewSingleAnnotation.swift; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 		F882F932282DB89200A481A8 /* Apiary */ = {
 			isa = PBXGroup;
 			children = (
-				F882F92B282DB67000A481A8 /* AparyMenuView.swift */,
+				F882F92B282DB67000A481A8 /* ApiaryMenuView.swift */,
 				F882F92D282DB86D00A481A8 /* AddApiaryView.swift */,
 				F882F93D282DCD0100A481A8 /* ApiaryListView.swift */,
 				F841E142282EDF0D00F60999 /* ApiaryDetailsView.swift */,
@@ -247,7 +247,7 @@
 				F882F928282D9C4300A481A8 /* UserListView.swift in Sources */,
 				F81C5A7C282D732300F86276 /* ApiaryManagementApp.xcdatamodeld in Sources */,
 				F81C5A77282D732300F86276 /* AppDelegate.swift in Sources */,
-				F882F92C282DB67000A481A8 /* AparyMenuView.swift in Sources */,
+				F882F92C282DB67000A481A8 /* ApiaryMenuView.swift in Sources */,
 				F81C5A7E282D732300F86276 /* ContentView.swift in Sources */,
 				F882F930282DB87900A481A8 /* BeeTypeListView.swift in Sources */,
 				F81C5A79282D732300F86276 /* SceneDelegate.swift in Sources */,
