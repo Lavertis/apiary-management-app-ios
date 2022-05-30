@@ -12,7 +12,7 @@ struct AddApiaryView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @Binding var username: String?
+    @Binding var user: User?
     
     @State private var name: String = ""
     @State private var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
@@ -134,7 +134,7 @@ struct AddApiaryView: View {
             alert = true
             return
         }
-        let arr = apiaries.filter { apiary in apiary.name == name && apiary.user?.username == username }
+        let arr = apiaries.filter { apiary in apiary.name == name && apiary.user?.username == user!.username! }
         if arr.count > 0 {
             alertTitle = "Error"
             alertMsg = "You already have apiary with such name"
@@ -148,7 +148,7 @@ struct AddApiaryView: View {
         apiary.beeType = beeType
         apiary.latitude = Decimal(string: latitude)! as NSDecimalNumber
         apiary.longitude = Decimal(string: longitude)! as NSDecimalNumber
-        apiary.user = users.filter { user in user.username == username }[0]
+        apiary.user = users.filter { $0.username == user!.username! }[0]
         
         do {
             try dbContext.save()
@@ -163,7 +163,7 @@ struct AddApiaryView: View {
     private func addAnnotation() {
         self.myAnnotation = MyAnnotation(
             title: "New Apiary Location",
-            subtitle: username! + "'s apiary",
+            subtitle: user!.username! + "'s apiary",
             coordinate: CLLocationCoordinate2D(
                 latitude: Double(latitude)!,
                 longitude: Double(longitude)!
@@ -204,6 +204,6 @@ struct AddApiaryView: View {
 
 struct AddApiaryView_Previews: PreviewProvider {
     static var previews: some View {
-        AddApiaryView(username: .constant("Username"))
+        AddApiaryView(user: .constant(User()))
     }
 }

@@ -17,7 +17,7 @@ struct ApiaryDetailsView: View {
         moveOnly: false
     )
     
-    @Binding var username: String?
+    @Binding var user: User?
     @State var apiaryName: String = ""
     @State var isEditShown: Bool = false
     
@@ -53,7 +53,7 @@ struct ApiaryDetailsView: View {
             .sheet(isPresented: $isEditShown, onDismiss: {
                 self.myAnnotation = MyAnnotation(
                     title: self.apiary!.name,
-                    subtitle: "\(self.username!)'s apiary",
+                    subtitle: "\(self.user!.username!)'s apiary",
                     coordinate: CLLocationCoordinate2D(
                         latitude: self.apiary!.latitude as! CLLocationDegrees,
                         longitude: self.apiary!.longitude as! CLLocationDegrees
@@ -62,7 +62,7 @@ struct ApiaryDetailsView: View {
                 )
             },content: {
                 NavigationView {
-                    EditApiaryView(isShown: self.$isEditShown, username: self.$username, name: self.$apiaryName)
+                    EditApiaryView(isShown: self.$isEditShown, user: self.$user, name: self.$apiaryName)
                     .environment(\.managedObjectContext, self.dbContext)
                     .navigationBarTitle(Text("Apiary Details Edit"), displayMode: .inline)
                     .navigationBarItems(trailing: Button(action: {
@@ -75,10 +75,10 @@ struct ApiaryDetailsView: View {
             
             Spacer()
         }.onAppear {
-            self.apiary = self.apiaries.filter { $0.name == self.apiaryName && $0.user!.username == self.username }[0]
+            self.apiary = self.apiaries.filter { $0.name == self.apiaryName && $0.user!.username! == self.user!.username! }[0]
             self.myAnnotation = MyAnnotation(
                 title: self.apiary!.name,
-                subtitle: "\(self.username!)'s apiary",
+                subtitle: "\(self.user!.username!)'s apiary",
                 coordinate: CLLocationCoordinate2D(
                     latitude: self.apiary!.latitude as! CLLocationDegrees,
                     longitude: self.apiary!.longitude as! CLLocationDegrees
@@ -91,6 +91,6 @@ struct ApiaryDetailsView: View {
 
 struct ApiaryDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        ApiaryDetailsView(username: .constant("Username"), apiaryName: "ApiaryName")
+        ApiaryDetailsView(user: .constant(User()), apiaryName: "ApiaryName")
     }
 }

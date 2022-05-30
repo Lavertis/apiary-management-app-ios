@@ -6,7 +6,7 @@ struct ApiaryMapView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)], animation: .default)
     private var users: FetchedResults<User>
     
-    @Binding var username: String?
+    @Binding var user: User?
     
     @State var myAnnotations = [MyAnnotation(
         title: "Katedra Informatyki",
@@ -24,7 +24,7 @@ struct ApiaryMapView: View {
             MapViewMultipleAnnotations(myAnnotations: $myAnnotations)
                 .frame(height: UIScreen.main.bounds.size.height * 0.80)
                 .onAppear {
-                    let user = self.users.filter { $0.username == self.username }[0]
+                    let user = self.users.filter { $0.username == self.user!.username! }[0]
                     let apiaries = Array(user.apiary!) as! Array<Apiary>
                     if apiaries.count == 0 {
                         return
@@ -32,7 +32,7 @@ struct ApiaryMapView: View {
                     self.myAnnotations = apiaries.map { apiary in
                         MyAnnotation(
                             title: apiary.name,
-                            subtitle: "\(self.username!)'s apiary",
+                            subtitle: "\(self.user!.username!)'s apiary",
                             coordinate: CLLocationCoordinate2D(
                                 latitude: apiary.latitude as! CLLocationDegrees,
                                 longitude: apiary.longitude as! CLLocationDegrees
@@ -47,6 +47,6 @@ struct ApiaryMapView: View {
 
 struct ApiaryMapView_Previews: PreviewProvider {
     static var previews: some View {
-        ApiaryMapView(username: .constant("Username"))
+        ApiaryMapView(user: .constant(User()))
     }
 }

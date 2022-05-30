@@ -9,62 +9,58 @@ struct HomeView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \LoggedInUser.user, ascending: true)], animation: .default)
     private var loggedInUsers: FetchedResults<LoggedInUser>
     
-    @State var username: String?
+    @State var user: User?
     
     var body: some View {
         NavigationView {
             VStack {
-                if username != nil {
-                    Text("Logged in as: \(username ?? "")").padding()
+                if user == nil {
+                    Group {
+                        NavigationLink(destination: SignInView(user: $user), label: {
+                            Text("Sign In")
+                        })
+                        NavigationLink(destination: SignUpView(), label: {
+                            Text("Sign Up")
+                        })
+                        NavigationLink(destination: UserListView(), label: {
+                            Text("User list")
+                        })
+                    }
+                    .frame(width: 115)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(5)
+                    .padding()
                 }
-                Group {
-                    if username == nil {
-                        Group {
-                            NavigationLink(destination: SignInView(globalUsername: self.$username), label: {
-                                Text("Sign In")
-                            })
-                            NavigationLink(destination: SignUpView(), label: {
-                                Text("Sign Up")
-                            })
-                            NavigationLink(destination: UserListView(), label: {
-                                Text("User list")
-                            })
-                        }
-                        .frame(width: 115)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(5)
-                        .padding()
+                else {
+                    Text("Logged in as: \(user?.username ?? "")").padding()
+                    ApiaryMenuView(user: $user)
+                    Button("Logout") {
+                        self.logout()
                     }
-                    else {
-                        ApiaryMenuView(username: self.$username)
-                        Button("Logout") {
-                            self.logout()
-                        }
-                        .frame(width: 130)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(5)
-                        .padding()
-                    }
+                    .frame(width: 130)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(5)
+                    .padding()
                 }
             }.navigationBarTitle("Apiary management")
         }
         .onAppear {
             self.seedBeeTypes()
             if self.loggedInUsers.count == 1 {
-                self.username = self.loggedInUsers[0].user!.username
+                self.user = self.loggedInUsers[0].user
             }
         }
     }
     
     private func logout() {
         do {
-            loggedInUsers.filter { $0.user!.username == username }.forEach(dbContext.delete)
+            loggedInUsers.filter { $0.user!.username == user?.username }.forEach(dbContext.delete)
             try dbContext.save()
-            username = nil
+            user = nil
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")

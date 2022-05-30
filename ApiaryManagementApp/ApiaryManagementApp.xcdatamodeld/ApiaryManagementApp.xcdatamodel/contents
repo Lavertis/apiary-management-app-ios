@@ -6,7 +6,7 @@
         <attribute name="longitude" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="beeType" maxCount="1" deletionRule="Nullify" destinationEntity="BeeType" inverseName="apiary" inverseEntity="BeeType"/>
-        <relationship name="user" maxCount="1" deletionRule="No Action" destinationEntity="User" inverseName="apiary" inverseEntity="User"/>
+        <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="apiary" inverseEntity="User"/>
     </entity>
     <entity name="BeeType" representedClassName="BeeType" syncable="YES" codeGenerationType="class">
         <attribute name="img" optional="YES" attributeType="String"/>
@@ -14,7 +14,7 @@
         <relationship name="apiary" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Apiary" inverseName="beeType" inverseEntity="Apiary"/>
     </entity>
     <entity name="LoggedInUser" representedClassName="LoggedInUser" syncable="YES" codeGenerationType="class">
-        <relationship name="user" maxCount="1" deletionRule="No Action" destinationEntity="User" inverseName="loggedInUser" inverseEntity="User"/>
+        <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="loggedInUser" inverseEntity="User"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="password" attributeType="String"/>

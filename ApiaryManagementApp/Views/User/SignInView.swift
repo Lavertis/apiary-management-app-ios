@@ -15,7 +15,7 @@ struct SignInView: View {
     @State private var alertTitle: String = ""
     @State private var alertMsg: String = ""
     
-    @Binding var globalUsername: String?
+    @Binding var user: User?
     
     var body: some View {
         VStack {
@@ -76,7 +76,7 @@ struct SignInView: View {
             let loggedInUser = LoggedInUser(context: dbContext)
             loggedInUser.user = userArr[0]
             try dbContext.save()
-            self.globalUsername = userArr[0].username
+            user = userArr[0]
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
@@ -86,6 +86,6 @@ struct SignInView: View {
 
 struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInView(globalUsername: .constant("Username"))
+        SignInView(user: .constant(User()))
     }
 }

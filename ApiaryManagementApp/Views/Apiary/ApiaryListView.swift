@@ -5,16 +5,16 @@ struct ApiaryListView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Apiary.name, ascending: true)], animation: .default)
     private var apiaries: FetchedResults<Apiary>
     
-    @Binding var username: String?
+    @Binding var user: User?
     @State private var listId: Int = 0
     
     var body: some View {
         VStack {
-            if (self.apiaries.filter { $0.user?.username == username }).count > 0 {
+            if (self.apiaries.filter { $0.user?.username == user!.username! }).count > 0 {
                 List {
-                    ForEach(apiaries.filter { $0.user?.username == username }, id: \.self) { apiary in
+                    ForEach(apiaries.filter { $0.user?.username == user!.username! }, id: \.self) { apiary in
                         NavigationLink(
-                            destination: ApiaryDetailsView(username: self.$username, apiaryName: apiary.name!),
+                            destination: ApiaryDetailsView(user: self.$user, apiaryName: apiary.name!),
                             label: {
                                 HStack {
                                     VStack(alignment: .leading) {
@@ -64,6 +64,6 @@ struct ApiaryListView: View {
 
 struct ApiaryListView_Previews: PreviewProvider {
     static var previews: some View {
-        ApiaryListView(username: .constant("Username"))
+        ApiaryListView(user: .constant(User()))
     }
 }

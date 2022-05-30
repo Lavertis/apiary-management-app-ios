@@ -11,7 +11,7 @@ struct EditApiaryView: View {
     private var users: FetchedResults<User>
     
     @Binding var isShown: Bool
-    @Binding var username: String?
+    @Binding var user: User?
     @State var apiary: Apiary?
     
     @Binding var name: String
@@ -117,7 +117,7 @@ struct EditApiaryView: View {
             Alert(title: Text(alertTitle), message: Text(alertMsg))
         }
         .onAppear {
-            self.apiary = self.apiaries.filter { $0.name == self.name && $0.user!.username == self.username }[0]
+            self.apiary = self.apiaries.filter { $0.name == self.name && $0.user!.username == self.user!.username! }[0]
             self.name = self.apiary!.name!
             self.beeType = self.apiary!.beeType
             self.hiveCount = Double(self.apiary!.hiveCount)
@@ -128,7 +128,7 @@ struct EditApiaryView: View {
             
             self.myAnnotation = MyAnnotation(
                 title: self.apiary!.name,
-                subtitle: "\(self.username!)'s apiary",
+                subtitle: "\(self.user!.username!)'s apiary",
                 coordinate: CLLocationCoordinate2D(
                     latitude: self.apiary!.latitude as! CLLocationDegrees,
                     longitude: self.apiary!.longitude as! CLLocationDegrees
@@ -152,7 +152,7 @@ struct EditApiaryView: View {
             alert = true
             return
         }
-        let arr = apiaries.filter { apiary in apiary.name == name && apiary.user?.username == username }
+        let arr = apiaries.filter { apiary in apiary.name == name && apiary.user!.username! == user!.username! }
         if arr.count > 0 && arr[0].name != name {
             alertTitle = "Error"
             alertMsg = "You already have apiary with such name"
@@ -165,7 +165,7 @@ struct EditApiaryView: View {
         apiary!.beeType = beeType
         apiary!.latitude = Decimal(string: latitude)! as NSDecimalNumber
         apiary!.longitude = Decimal(string: longitude)! as NSDecimalNumber
-        apiary!.user = users.filter { user in user.username == username }[0]
+        apiary!.user = users.filter { user in user.username == user.username }[0]
         
         do {
             try dbContext.save()
@@ -181,7 +181,7 @@ struct EditApiaryView: View {
     private func addAnnotation() {
         self.myAnnotation = MyAnnotation(
             title: name,
-            subtitle: username! + "'s apiary",
+            subtitle: user!.username! + "'s apiary",
             coordinate: CLLocationCoordinate2D(
                 latitude: Double(latitude)!,
                 longitude: Double(longitude)!
@@ -222,6 +222,6 @@ struct EditApiaryView: View {
 
 struct ApiaryEditView_Previews: PreviewProvider {
     static var previews: some View {
-        EditApiaryView(isShown: .constant(true), username: .constant("Username"), name: .constant("Apiary name"), location: CLLocationCoordinate2D(latitude: 0, longitude: 0), hiveCount: 1)
+        EditApiaryView(isShown: .constant(true), user: .constant(User()), name: .constant("Apiary name"), location: CLLocationCoordinate2D(latitude: 0, longitude: 0), hiveCount: 1)
     }
 }
