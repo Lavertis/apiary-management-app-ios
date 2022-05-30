@@ -6,6 +6,9 @@ struct SignInView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.username, ascending: true)], animation: .default)
     private var users: FetchedResults<User>
     
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \LoggedInUser.user, ascending: true)], animation: .default)
+    private var loggedInUsers: FetchedResults<LoggedInUser>
+    
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var alert: Bool = false
@@ -54,21 +57,30 @@ struct SignInView: View {
             return
         }
         
-        let arr = self.users.filter { user in user.username == self.username }
-        if arr.count == 0 {
+        let userArr = self.users.filter { user in user.username == self.username }
+        if userArr.count == 0 {
             self.alertTitle = "Error"
             self.alertMsg = "Username does not exist"
             self.alert = true
             return
         }
-        if arr.count == 1 && arr[0].password != self.password {
+        if userArr.count == 1 && userArr[0].password != self.password {
             self.alertTitle = "Error"
             self.alertMsg = "Wrong password"
             self.alert = true
             return
         }
         
-        self.globalUsername = arr[0].username
+        do {
+            loggedInUsers.filter { $0.user!.username == username }.forEach(dbContext.delete)
+            let loggedInUser = LoggedInUser(context: dbContext)
+            loggedInUser.user = userArr[0]
+            try dbContext.save()
+            self.globalUsername = userArr[0].username
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
     }
 }
 

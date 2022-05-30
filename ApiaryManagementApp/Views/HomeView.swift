@@ -6,6 +6,9 @@ struct HomeView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \BeeType.name, ascending: true)], animation: .default)
     private var beeTypes: FetchedResults<BeeType>
     
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \LoggedInUser.user, ascending: true)], animation: .default)
+    private var loggedInUsers: FetchedResults<LoggedInUser>
+    
     @State var username: String?
     
     var body: some View {
@@ -37,7 +40,7 @@ struct HomeView: View {
                     else {
                         ApiaryMenuView(username: self.$username)
                         Button("Logout") {
-                            self.username = nil
+                            self.logout()
                         }
                         .frame(width: 130)
                         .padding()
@@ -48,7 +51,24 @@ struct HomeView: View {
                     }
                 }
             }.navigationBarTitle("Apiary management")
-        }.onAppear(perform: self.seedBeeTypes)
+        }
+        .onAppear {
+            self.seedBeeTypes()
+            if self.loggedInUsers.count == 1 {
+                self.username = self.loggedInUsers[0].user!.username
+            }
+        }
+    }
+    
+    private func logout() {
+        do {
+            loggedInUsers.filter { $0.user!.username == username }.forEach(dbContext.delete)
+            try dbContext.save()
+            username = nil
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
     }
     
     private func seedBeeTypes() {

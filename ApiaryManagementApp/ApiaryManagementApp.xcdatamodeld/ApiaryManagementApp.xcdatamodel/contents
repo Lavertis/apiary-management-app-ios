@@ -13,14 +13,19 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="apiary" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Apiary" inverseName="beeType" inverseEntity="Apiary"/>
     </entity>
+    <entity name="LoggedInUser" representedClassName="LoggedInUser" syncable="YES" codeGenerationType="class">
+        <relationship name="user" maxCount="1" deletionRule="No Action" destinationEntity="User" inverseName="loggedInUser" inverseEntity="User"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="password" attributeType="String"/>
         <attribute name="username" attributeType="String"/>
         <relationship name="apiary" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Apiary" inverseName="user" inverseEntity="Apiary"/>
+        <relationship name="loggedInUser" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="LoggedInUser" inverseName="user" inverseEntity="LoggedInUser"/>
     </entity>
     <elements>
         <element name="Apiary" positionX="-54" positionY="9" width="128" height="133"/>
         <element name="BeeType" positionX="-36" positionY="45" width="128" height="88"/>
-        <element name="User" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="LoggedInUser" positionX="-54" positionY="45" width="128" height="58"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="103"/>
     </elements>
 </model>
