@@ -6,7 +6,6 @@ struct ApiaryListView: View {
     private var apiaries: FetchedResults<Apiary>
     
     @Binding var username: String?
-    
     @State private var listId: Int = 0
     
     var body: some View {
@@ -22,8 +21,8 @@ struct ApiaryListView: View {
                                         Text("Name: \(apiary.name!)")
                                         Text("Bee type: \(apiary.beeType!.name!)")
                                         Text("Hive count: \(apiary.hiveCount)")
-                                        Text("Latitude: \(apiary.latitude!)")
-                                        Text("Latitude: \(apiary.longitude!)")
+                                        Text("Latitude: \(self.getDecimalAsStr(num: apiary.latitude! as Decimal))")
+                                        Text("Longitude: \(self.getDecimalAsStr(num: apiary.longitude! as Decimal))")
                                     }
                                     Spacer()
                                     Image(apiary.beeType!.img!)
@@ -52,6 +51,14 @@ struct ApiaryListView: View {
             }
             listId = listId + 1
         }
+    }
+    
+    private func getDecimalAsStr(num: Decimal) -> String {
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 3
+        formatter.minimumFractionDigits = 0
+        formatter.numberStyle = .decimal
+        return formatter.string(for: num) ?? ""
     }
 }
 
