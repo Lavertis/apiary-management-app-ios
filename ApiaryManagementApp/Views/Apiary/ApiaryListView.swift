@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct ApiaryListView: View {
-    @Binding var username: String?
-    
     @Environment(\.managedObjectContext) private var dbContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Apiary.name, ascending: true)], animation: .default)
     private var apiaries: FetchedResults<Apiary>
+    
+    @Binding var username: String?
+    
+    @State private var listId: Int = 0
     
     var body: some View {
         VStack {
@@ -31,7 +33,7 @@ struct ApiaryListView: View {
                                 }
                         }).padding(.vertical)
                     }.onDelete(perform: self.deleteApiary)
-                }
+                }.id(listId)
             }
             else {
                 Text("You don't have any apiary")
@@ -48,6 +50,7 @@ struct ApiaryListView: View {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
+            listId = listId + 1
         }
     }
 }

@@ -162,7 +162,7 @@ struct AddApiaryView: View {
     
     private func addAnnotation() {
         self.myAnnotation = MyAnnotation(
-            title: name,
+            title: "New Apiary Location",
             subtitle: username! + "'s apiary",
             coordinate: CLLocationCoordinate2D(
                 latitude: Double(latitude)!,

@@ -52,7 +52,7 @@ struct BeeTypeListView: View {
                             let widthOffsetPctg = abs(self.offset.width) / UIScreen.main.bounds.size.width
                             let heightOffsetPctg = abs(self.offset.height) / UIScreen.main.bounds.size.height
                             let maxVal = max(widthOffsetPctg, heightOffsetPctg)
-                            self.scale = 1 - 1.5 * maxVal
+                            self.scale = 1 - 1.33 * maxVal
                         }))
             }
         }.navigationBarTitle("Bee types")
