@@ -10,9 +10,9 @@ struct ApiaryListView: View {
     
     var body: some View {
         VStack {
-            if (self.apiaries.filter { $0.user?.username == user!.username! }).count > 0 {
+            if (self.apiaries.filter { $0.user!.username == user!.username! }).count > 0 {
                 List {
-                    ForEach(apiaries.filter { $0.user?.username == user!.username! }, id: \.self) { apiary in
+                    ForEach(apiaries.filter { $0.user!.username == user!.username! }, id: \.self) { apiary in
                         NavigationLink(
                             destination: ApiaryDetailsView(user: self.$user, apiaryName: apiary.name!),
                             label: {

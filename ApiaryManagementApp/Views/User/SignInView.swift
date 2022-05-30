@@ -72,7 +72,7 @@ struct SignInView: View {
         }
         
         do {
-            loggedInUsers.filter { $0.user!.username == username }.forEach(dbContext.delete)
+            loggedInUsers.filter { $0.user!.username! == username }.forEach(dbContext.delete)
             let loggedInUser = LoggedInUser(context: dbContext)
             loggedInUser.user = userArr[0]
             try dbContext.save()

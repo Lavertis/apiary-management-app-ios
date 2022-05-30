@@ -134,7 +134,7 @@ struct AddApiaryView: View {
             alert = true
             return
         }
-        let arr = apiaries.filter { apiary in apiary.name == name && apiary.user?.username == user!.username! }
+        let arr = apiaries.filter { apiary in apiary.name == name && apiary.user!.username! == user!.username! }
         if arr.count > 0 {
             alertTitle = "Error"
             alertMsg = "You already have apiary with such name"

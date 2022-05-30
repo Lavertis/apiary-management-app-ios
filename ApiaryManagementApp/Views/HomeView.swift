@@ -34,7 +34,7 @@ struct HomeView: View {
                     .padding()
                 }
                 else {
-                    Text("Logged in as: \(user?.username ?? "")").padding()
+                    Text("Logged in as: \(user!.username!)").padding()
                     ApiaryMenuView(user: $user)
                     Button("Logout") {
                         self.logout()
@@ -58,7 +58,7 @@ struct HomeView: View {
     
     private func logout() {
         do {
-            loggedInUsers.filter { $0.user!.username == user?.username }.forEach(dbContext.delete)
+            loggedInUsers.filter { $0.user!.username! == user!.username! }.forEach(dbContext.delete)
             try dbContext.save()
             user = nil
         } catch {

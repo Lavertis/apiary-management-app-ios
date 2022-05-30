@@ -52,7 +52,7 @@ struct SignUpView: View {
             alert = true
             return
         }
-        let arr = self.users.filter { user in user.username == self.username }
+        let arr = self.users.filter { user in user.username! == self.username }
         if arr.count == 1 {
             self.alertTitle = "Error"
             self.alertMsg = "Username already exists"

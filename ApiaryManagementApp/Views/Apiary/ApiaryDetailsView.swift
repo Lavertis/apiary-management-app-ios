@@ -29,13 +29,13 @@ struct ApiaryDetailsView: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Name: \(apiary?.name! ?? "")")
-                    Text("Bee type: \(apiary?.beeType!.name! ?? "")")
+                    Text("Name: \(apiary?.name ?? "")")
+                    Text("Bee type: \(apiary?.beeType?.name ?? "")")
                     Text("Hive count: \(Int(apiary?.hiveCount ?? 0))")
                 }
                 Spacer()
                 if apiary != nil {
-                    Image(apiary!.beeType!.img!)
+                    Image(apiary?.beeType?.img ?? "")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100)
@@ -52,7 +52,7 @@ struct ApiaryDetailsView: View {
             .padding(.leading)
             .sheet(isPresented: $isEditShown, onDismiss: {
                 self.myAnnotation = MyAnnotation(
-                    title: self.apiary!.name,
+                    title: self.apiary!.name!,
                     subtitle: "\(self.user!.username!)'s apiary",
                     coordinate: CLLocationCoordinate2D(
                         latitude: self.apiary!.latitude as! CLLocationDegrees,
@@ -77,7 +77,7 @@ struct ApiaryDetailsView: View {
         }.onAppear {
             self.apiary = self.apiaries.filter { $0.name == self.apiaryName && $0.user!.username! == self.user!.username! }[0]
             self.myAnnotation = MyAnnotation(
-                title: self.apiary!.name,
+                title: self.apiary!.name!,
                 subtitle: "\(self.user!.username!)'s apiary",
                 coordinate: CLLocationCoordinate2D(
                     latitude: self.apiary!.latitude as! CLLocationDegrees,
